@@ -9,7 +9,7 @@ const { REACT_APP_ENV = 'dev' } = process.env;
 
 export default defineConfig({
   define: {
-    API_URL: 'http://localhost:8001', // API地址
+    BASE_URL: '/api', // API地址
   },
   /**
    * @name 开启 hash 模式
