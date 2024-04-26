@@ -10,6 +10,8 @@ import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
 import React from 'react';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
+//可以通过输入地址访问的
+const whiteListArr = ['/user/login', '/user/register'];
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
@@ -27,13 +29,22 @@ export async function getInitialState(): Promise<{
       });
       return msg.data;
     } catch (error) {
-      history.push(loginPath);
+      // history.push(loginPath);
+
+      const { location } = history;
+      if (whiteListArr.includes(location.pathname)) {
+        history.push(location.pathname);
+      } else {
+        history.push(loginPath)
+      }
     }
     return undefined;
   };
   // 如果不是登录页面，执行
   const { location } = history;
-  if (location.pathname !== loginPath) {
+  console.log("🚀 ~ file:app method:getInitialState line:36 -----", location)
+  // location.pathname !== loginPath
+  if (!whiteListArr.includes(location.pathname)) {
     const currentUser = await fetchUserInfo();
     return {
       fetchUserInfo,
