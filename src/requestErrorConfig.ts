@@ -40,6 +40,7 @@ export const errorConfig: RequestConfig = {
     },
     // 错误接收及处理
     errorHandler: (error: any, opts: any) => {
+      console.log('1111111111111111', error)
       if (opts?.skipErrorHandler) throw error;
       // 我们的 errorThrower 抛出的错误。
       if (error.name === 'BizError') {
@@ -100,10 +101,23 @@ export const errorConfig: RequestConfig = {
       // 拦截响应数据，进行个性化处理
       const { data } = response as unknown as ResponseStructure;
 
-      if (data?.success === false) {
-        message.error('请求失败！');
+      console.log('response', response)
+      // if (data?.success === false) {
+      //   message.error('请求失败！');
+      // }
+
+      console.log(data.code, data.data);
+
+      if (data?.code === 200) {
+        return data;
       }
-      return response;
+
+      const errorCode = [40000, 40001, 40100, 40101, 50000];
+
+      if (errorCode.includes(data.code)) {
+        message.error(data.description === '' ? data.description : data.message);
+        return response;
+      }
     },
   ],
 };

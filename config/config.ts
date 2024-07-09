@@ -7,6 +7,7 @@ import routes from './routes';
 
 const { REACT_APP_ENV = 'dev' } = process.env;
 
+console.log('运行环境', REACT_APP_ENV);
 export default defineConfig({
   define: {
     BASE_URL: '/api', // API地址

@@ -39,14 +39,24 @@ export default [
     icon: 'crown',
     access: 'canAdmin',
     routes: [
+      // {
+      //   path: '/admin',
+      //   redirect: '/admin/sub-page',
+      // },
+      // {
+      //   path: '/admin/sub-page',
+      //   name: 'sub-page',
+      //   component: './Admin',
+      // },
+
       {
         path: '/admin',
-        redirect: '/admin/sub-page',
+        redirect: '/admin/user-manage',
       },
       {
-        path: '/admin/sub-page',
-        name: 'sub-page',
-        component: './Admin',
+        path: '/admin/user-manage',
+        name: '用户管理',
+        component: './Admin/UserManage',
       },
     ],
   },
